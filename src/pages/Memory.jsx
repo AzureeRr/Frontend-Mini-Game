@@ -31,27 +31,36 @@ const Memory = () => {
     return icons[randomIndex];
   };
 
-  const setDifficulty = (diff) => {
-    if (diff === "Easy") {
-      setArrayNum(16);
-      setGridCol(4);
-      setIcons(["😱", "🫀", "📦", "🔭", "👾", "🌟"]);
-      setTime(3000);
-      setGameLocked(true);
-    } else if (diff === "Medium") {
-      setArrayNum(20);
-      setGridCol(5);
-      setIcons(["😱", "🫀", "📦", "🔭", "👾", "🌟", "🔥", "🚀"]);
-      setTime(2000);
-      setGameLocked(true);
-    } else if (diff === "Hard") {
-      setArrayNum(24);
-      setGridCol(6);
-      setIcons(["😱", "🫀", "📦", "🔭", "👾", "🌟", "🔥", "🚀", "🪐", "💎"]);
-      setTime(1000);
-      setGameLocked(true);
-    }
-
+  const difficultySettings = {
+    Easy: {
+      arrayNum: 16,
+      gridCol: 4,
+      icons: ["😱", "🫀", "📦", "🔭", "👾", "🌟"],
+      time: 3000,
+    },
+    Medium: {
+      arrayNum: 20,
+      gridCol: 5,
+      icons: ["😱", "🫀", "📦", "🔭", "👾", "🌟", "🔥", "🚀"],
+      time: 2000,
+    },
+    Hard: {
+      arrayNum: 24,
+      gridCol: 6,
+      icons: ["😱", "🫀", "📦", "🔭", "👾", "🌟", "🔥", "🚀", "🪐", "💎"],
+      time: 1000,
+    },
+  };
+  const setDifficulty = (level) => {
+    const settings = difficultySettings[level];
+    if (!settings) return;
+    setArrayNum(settings.arrayNum);
+    setGridCol(settings.gridCol);
+    setIcons(settings.icons);
+    setTime(settings.time);
+    resetGame();
+  };
+  const resetGame = () => {
     setMatchedPairs(0);
     setScore(0);
     setFirstSelected(null);
